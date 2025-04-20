@@ -1,0 +1,42 @@
+# .NET Core
+bin/
+obj/
+out/
+
+# User-specific files
+.vscode/
+.idea/
+
+# Windows Installer files
+Thumbs.db
+ehthumbs.db
+
+# ASP.NET Core
+appsettings.Development.json
+appsettings.Local.json
+
+# Windows image file caches
+*.cab
+*.msi
+*.msm
+*.msp
+
+# JetBrains Rider
+.idea/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Firebase
+# Excluye la clave del servicio de Firebase, que no debe ser subida al repositorio
+service-account-key.json
+
+# Logs
+*.log
+*.vs
