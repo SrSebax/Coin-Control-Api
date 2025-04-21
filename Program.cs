@@ -1,10 +1,20 @@
 using CoinControl.Api.Services;
+using CoinControl.Api.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Agregar FirebaseService al contenedor de servicios
+// Firebase
 builder.Services.AddSingleton<FirebaseService>();
 
+// DbContext
+builder.Services.AddDbContext<CoinControlDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Servicios
+builder.Services.AddScoped<UserService>();
+
+// MVC
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
@@ -18,7 +28,5 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

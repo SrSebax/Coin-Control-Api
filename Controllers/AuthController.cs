@@ -10,22 +10,26 @@ namespace CoinControl.Api.Controllers
     public class AuthController : ControllerBase
     {
         private readonly FirebaseService _firebaseService;
+        private readonly UserService _userService;
 
-        public AuthController(FirebaseService firebaseService)
+        public AuthController(FirebaseService firebaseService, UserService userService)
         {
             _firebaseService = firebaseService;
+            _userService = userService;
         }
 
         [HttpPost("verify")]
         public async Task<IActionResult> VerifyUser([FromBody] VerifyUserModel model)
         {
-            AuthModel user = await _firebaseService.GetUserInfoAsync(model.Uid);
+            var user = await _firebaseService.GetUserInfoAsync(model.Uid);
             if (user != null)
             {
+                var savedUser = await _userService.CreateUserIfNotExistsAsync(user);
+
                 return Ok(new 
                 {
                     message = "User verified successfully",
-                    user
+                    user = savedUser
                 });
             }
             else
