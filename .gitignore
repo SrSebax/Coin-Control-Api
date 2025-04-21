@@ -40,3 +40,5 @@ service-account-key.json
 # Logs
 *.log
 *.vs
+
+.env
