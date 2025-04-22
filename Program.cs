@@ -12,6 +12,8 @@ builder.Services.AddDbContext<CoinControlDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Servicios
+
+builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<CategoriaService>();
 

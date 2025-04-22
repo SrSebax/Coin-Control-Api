@@ -14,27 +14,41 @@ namespace CoinControl.Api.Services
             _context = context;
         }
 
-        public async Task<User> CreateUserIfNotExistsAsync(AuthModel model)
+        public List<User> GetUsers()
         {
-            // Verifica si el usuario ya existe
-            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Uid == model.Uid);
-            if (existingUser != null)
-            {
-                return existingUser;
-            }
+            return _context.Users.ToList();
+        }
 
-            // Crea nuevo usuario
-            var newUser = new User
-            {
-                Uid = model.Uid,
-                Name = model.Name,
-                Email = model.Email
-            };
+        // Obtener un usuario por UID
+        public async Task<User?> GetUserByUidAsync(string uid)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Uid == uid);
+        }
 
-            _context.Users.Add(newUser);
+        // Actualizar un usuario por UID
+        public async Task<User?> UpdateUserAsync(string uid, User user)
+        {
+            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Uid == uid);
+            if (existingUser == null) return null;
+
+            // Actualiza los campos del usuario
+            existingUser.Uid = user.Uid ?? existingUser.Uid;
+            existingUser.Name = user.Name ?? existingUser.Name;
+            existingUser.Email = user.Email ?? existingUser.Email;
+
             await _context.SaveChangesAsync();
+            return existingUser;
+        }
 
-            return newUser;
+        // Eliminar un usuario por UID
+        public async Task<bool> DeleteUserAsync(string uid)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Uid == uid);
+            if (user == null) return false;
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

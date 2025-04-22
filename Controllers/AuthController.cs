@@ -10,12 +10,12 @@ namespace CoinControl.Api.Controllers
     public class AuthController : ControllerBase
     {
         private readonly FirebaseService _firebaseService;
-        private readonly UserService _userService;
+        private readonly AuthService _authService;
 
-        public AuthController(FirebaseService firebaseService, UserService userService)
+        public AuthController(FirebaseService firebaseService, AuthService authService)
         {
             _firebaseService = firebaseService;
-            _userService = userService;
+            _authService = authService;
         }
 
         [HttpPost("verify")]
@@ -29,7 +29,7 @@ namespace CoinControl.Api.Controllers
             var user = await _firebaseService.GetUserInfoAsync(model.Uid);
             if (user != null)
             {
-                var savedUser = await _userService.CreateUserIfNotExistsAsync(user);
+                var savedUser = await _authService.CreateUserIfNotExistsAsync(user);
 
                 return Ok(new 
                 {
