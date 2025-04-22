@@ -44,6 +44,6 @@ app.UseCors("AllowLocalhost"); // Usa la política de CORS que configuramos ante
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
-;
+app.MapControllers();
 
 app.Run();
