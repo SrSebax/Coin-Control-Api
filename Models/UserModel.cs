@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CoinControl.Api.Models
 {
-    public class User
+    public class UserModel
     {
         [Key]
         public int? Id { get; set; }

@@ -14,7 +14,7 @@ namespace CoinControl.Api.Services
             _context = context;
         }
 
-        public async Task<User> CreateUserIfNotExistsAsync(AuthModel model)
+        public async Task<UserModel> CreateUserIfNotExistsAsync(AuthModel model)
         {
             var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Uid == model.Uid);
             if (existingUser != null)
@@ -22,7 +22,7 @@ namespace CoinControl.Api.Services
                 return existingUser;
             }
 
-            var newUser = new User
+            var newUser = new UserModel
             {
                 Uid = model.Uid,
                 Name = model.Name,

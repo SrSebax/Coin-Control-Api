@@ -14,27 +14,27 @@ namespace CoinControl.Api.Services
             _context = context;
         }
 
-        public List<User> GetUsers()
+        public List<UserModel> GetUsers()
         {
             return _context.Users.ToList();
         }
 
         // Obtener un usuario por UID
-        public async Task<User?> GetUserByUidAsync(string uid)
+        public async Task<UserModel?> GetUserByUidAsync(string uid)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Uid == uid);
         }
 
         // Actualizar un usuario por UID
-        public async Task<User?> UpdateUserAsync(string uid, User user)
+        public async Task<UserModel?> UpdateUserAsync(string uid, UserModel userModel)
         {
             var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Uid == uid);
             if (existingUser == null) return null;
 
             // Actualiza los campos del usuario
-            existingUser.Uid = user.Uid ?? existingUser.Uid;
-            existingUser.Name = user.Name ?? existingUser.Name;
-            existingUser.Email = user.Email ?? existingUser.Email;
+            existingUser.Uid = userModel.Uid ?? existingUser.Uid;
+            existingUser.Name = userModel.Name ?? existingUser.Name;
+            existingUser.Email = userModel.Email ?? existingUser.Email;
 
             await _context.SaveChangesAsync();
             return existingUser;

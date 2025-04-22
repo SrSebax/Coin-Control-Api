@@ -19,7 +19,7 @@ namespace CoinControl.Api.Controllers
 
         // GET: api/user
         [HttpGet]
-        public ActionResult<List<User>> Get()
+        public ActionResult<List<UserModel>> Get()
         {
             var users = _userService.GetUsers();
             return Ok(users);
@@ -27,7 +27,7 @@ namespace CoinControl.Api.Controllers
 
         // GET: api/user/{uid}
         [HttpGet("{uid}")]
-        public async Task<ActionResult<User>> GetByUid(string uid)
+        public async Task<ActionResult<UserModel>> GetByUid(string uid)
         {
             var user = await _userService.GetUserByUidAsync(uid);
             if (user == null)
@@ -39,9 +39,9 @@ namespace CoinControl.Api.Controllers
 
         // PUT: api/user/{uid}
         [HttpPut("{uid}")]
-        public async Task<ActionResult<User>> Put(string uid, [FromBody] User user)
+        public async Task<ActionResult<UserModel>> Put(string uid, [FromBody] UserModel userModel)
         {
-            var updatedUser = await _userService.UpdateUserAsync(uid, user);
+            var updatedUser = await _userService.UpdateUserAsync(uid, userModel);
             if (updatedUser == null)
             {
                 return NotFound($"User with UID {uid} not found.");

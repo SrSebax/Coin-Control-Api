@@ -18,7 +18,7 @@ namespace CoinControl.Api.Controllers
             _authService = authService;
         }
 
-        [HttpPost("verify")]
+        [HttpPost]
         public async Task<IActionResult> VerifyUser([FromBody] VerifyUserModel model)
         {
             if (string.IsNullOrEmpty(model.Uid))
