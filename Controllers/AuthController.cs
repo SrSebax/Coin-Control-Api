@@ -21,6 +21,11 @@ namespace CoinControl.Api.Controllers
         [HttpPost("verify")]
         public async Task<IActionResult> VerifyUser([FromBody] VerifyUserModel model)
         {
+            if (string.IsNullOrEmpty(model.Uid))
+            {
+                return BadRequest(new { message = "UID cannot be null or empty" });
+            }
+
             var user = await _firebaseService.GetUserInfoAsync(model.Uid);
             if (user != null)
             {
@@ -41,6 +46,6 @@ namespace CoinControl.Api.Controllers
 
     public class VerifyUserModel
     {
-        public string Uid { get; set; }
+        public string? Uid { get; set; }
     }
 }

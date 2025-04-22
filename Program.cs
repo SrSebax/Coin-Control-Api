@@ -13,6 +13,7 @@ builder.Services.AddDbContext<CoinControlDbContext>(options =>
 
 // Servicios
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<CategoriaService>();
 
 // MVC
 builder.Services.AddControllers();
